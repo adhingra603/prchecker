@@ -1,4 +1,4 @@
-package com.github.adhingra69.prchecker;
+package com.github.adhingra603.prchecker;
 
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackSession;

@@ -1,4 +1,4 @@
-package com.github.adhingra69.prchecker;
+package com.github.adhingra603.prchecker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
