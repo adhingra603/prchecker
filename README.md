@@ -9,11 +9,13 @@ The Pull Request Checker is a Spring Boot Application which periodically checks 
 [Eclipse EGit Github Connector] (https://github.com/eclipse/egit-github)
 
 ## How to Use
-Build from source
+**Build**
+The `pom.xml` file included in the repository is Maven compliant, and has all dependencies defined.  A Maven environment is all that is required to build this project successfully.
 ```
 mvn clean package
 ```
-Set the following environment variables at the OS level.  Alternatively, you can place these in an application.properties file.  See the [Spring] (http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-application-property-files) for details
+**Runtime Environment Settings**
+Set the following environment variables at the OS level.  Alternatively, you can place these in an application.properties file.  See the [Spring Externalized Configuration] (http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-application-property-files) documentation for details
 ```
 # The auth token for your Slack account
 PR_SLACK_AUTH_TOKEN=
@@ -33,6 +35,7 @@ PR_GITHUB_REPO=
 # The age of the Pull Request, in days.  PR's older than this will be published to Slack
 PR_DAYS=
 ```
+**How to Run**
 Run via Spring Boot
 ```
 mvn spring-boot:run
