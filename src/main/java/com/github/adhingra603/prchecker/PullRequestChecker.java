@@ -1,3 +1,18 @@
+/*
+ * Copyright 2016 Anand Dhingra
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.github.adhingra603.prchecker;
 
 import com.ullink.slack.simpleslackapi.SlackChannel;
@@ -7,6 +22,7 @@ import org.eclipse.egit.github.core.PullRequest;
 import org.eclipse.egit.github.core.RepositoryId;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.PullRequestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,36 +39,41 @@ import java.util.List;
 @Component
 public class PullRequestChecker {
 
-    @Scheduled(fixedRate = 5000)
-    public static void checkPullRequests(PRProperties prProperties) throws Exception {
+    private PRConfiguration prProperties;
+
+    @Autowired
+    public PullRequestChecker(PRConfiguration prProperties) {
+        this.prProperties = prProperties;
+    }
+
+    @Scheduled(fixedRate = 10000)
+    public void checkPullRequests() throws Exception {
 
         // GitHub API token
         GitHubClient client = new GitHubClient();
-//        client.setOAuth2Token(PR_GITHUB_AUTH_TOKEN);
         client.setOAuth2Token(prProperties.getGithubAuthToken());
 
         // GitHub Repository
-//        RepositoryId rid = new RepositoryId(PR_GITHUB_USER, PR_GITHUB_REPO);
         RepositoryId rid = new RepositoryId(prProperties.getGithubUser(), prProperties.getGithubRepo());
         PullRequestService prservice = new PullRequestService(client);
 
         // Construct a Date object which represents the threshold date of the Pull Request
         long day_in_ms = 1000 * 60 * 60 * 24;
-//        Date prAge = new Date(System.currentTimeMillis() - PR_DAYS * day_in_ms);
         Date prAge = new Date(System.currentTimeMillis() - prProperties.getPrAge() * day_in_ms);
 
+        // Fetch messages from GitHub for aged pull requests
         List messages = getPullRequests(rid, prservice, prAge);
+
         sendMessagesToChannel(messages, prProperties.getSlackAuthToken(), prProperties.getSlackChannel());
 
     }
 
     /**
-     *
      * Gets pull requests which are older than a certain amount of time.
      *
-     * @param rid           Repository ID
-     * @param prservice     The PullRequest Service
-     * @param age           Pull requests older than this will be returned
+     * @param rid       Repository ID
+     * @param prservice The PullRequest Service
+     * @param age       Pull requests older than this will be returned
      * @return messages     A list of pull requests which are older than the specified age
      * @throws IOException
      */
@@ -77,12 +98,10 @@ public class PullRequestChecker {
 
 
     /**
-     *
      * Sends a message to a Slack Channel
      *
-     * @param messages      List of messages to send to the channel.
-     * @throws Exception    In case the SlackSession can not be opened.  TODO: Handle error and report to user
-     *
+     * @param messages List of messages to send to the channel.
+     * @throws Exception In case the SlackSession can not be opened.  TODO: Handle error and report to user
      */
     private static void sendMessagesToChannel(List<String> messages, String token, String channel) throws Exception {
 
@@ -91,10 +110,9 @@ public class PullRequestChecker {
 
         SlackChannel c = session.findChannelByName(channel);
 
-        for (String s: messages)
+        for (String s : messages)
             session.sendMessage(c, s);
 
     }
 
 }
-
