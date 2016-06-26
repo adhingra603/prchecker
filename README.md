@@ -1,6 +1,8 @@
 # Pull Request Checker
 The Pull Request Checker is a Spring Boot Application which periodically checks a GitHub repository for aging pull requests, then sends notifications to a Slack Channel.
 
+This application can run in Maven, Docker, or via Docker Compose.
+
 ## Technologies Used
 [Spring Boot] (http://projects.spring.io/spring-boot/)
 
@@ -8,7 +10,17 @@ The Pull Request Checker is a Spring Boot Application which periodically checks 
 
 [Eclipse EGit Github Connector] (https://github.com/eclipse/egit-github)
 
-## How to Use
+[Docker] (https://www.docker.com/)
+
+[Docker Compose] (https://docs.docker.com/compose/)
+
+## How to Use (TL;DR)
+```
+cd worker; mvn clean package
+vi docker-compose.yml
+docker-compose up
+```
+
 **Build**
 
 The `pom.xml` file included in the repository is Maven compliant, and has all dependencies defined.  A Maven environment is all that is required to build this project successfully.
