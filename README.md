@@ -29,6 +29,7 @@ cd worker; mvn clean package; cd ..
 vi docker-compose.yml
 docker-compose up
 ```
+The above will get you up and running.  See below if you wish to do development for the Spring Boot worker.
 
 ## How to Use
 **Build**
