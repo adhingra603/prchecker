@@ -3,6 +3,12 @@ The Pull Request Checker is a Spring Boot Application which periodically checks 
 
 This application can run in Maven, Docker, or via Docker Compose.
 
+## Prerequisites
+- JDK 1.8
+- Maven 3.3
+- Docker 1.12
+- Docker Compose 1.8
+- 
 ## Technologies Used
 [Spring Boot] (http://projects.spring.io/spring-boot/)
 
@@ -16,7 +22,7 @@ This application can run in Maven, Docker, or via Docker Compose.
 
 ## How to Use (TL;DR)
 ```
-cd worker; mvn clean package
+cd worker; mvn clean package; cd ..
 vi docker-compose.yml
 docker-compose up
 ```
