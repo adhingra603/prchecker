@@ -1,0 +1,23 @@
+worker:
+  build: worker
+  environment:
+    # The auth token for your Slack account
+    - PR_SLACK_AUTH_TOKEN=xoxp-52866333655-52866333719-53826141954-a626a45cd6
+
+    # The name of the Slack Channel to publish aged Pull Requests
+    - PR_SLACK_CHANNEL=general
+
+    # The GitHub user
+    - PR_GITHUB_REPO=hello-world
+
+    # The GitHub auth token
+    - PR_GITHUB_AUTH_TOKEN=81ccad286dd0908cc0c866adc30d5f8239ed6e6b
+
+    # The GitHub repository to check for aged Pull Requests
+    - PR_GITHUB_USER=adhingra603
+
+    # Age of Pull Request in days.  PR's older than this will be published to Slack
+    - PR_DAYS=5
+
+    # Time in milliseconds to refresh the check
+    - PR_CHECK_FREQUENCY=25000
