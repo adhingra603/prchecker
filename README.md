@@ -10,7 +10,7 @@ This application can run in Maven, Docker, or via Docker Compose.
 - Docker Compose 1.8
 
 ## Roadmap
-See the PR Checker 1.0 roadmap for details on outstanding tasks, and how you can contribute.
+See the [PR Checker 1.0 roadmap] (https://github.com/adhingra603/prchecker/wiki/Roadmap-1.0) for details on outstanding tasks, and how you can contribute.
 
 ## Technologies Used
 [Spring Boot] (http://projects.spring.io/spring-boot/)
